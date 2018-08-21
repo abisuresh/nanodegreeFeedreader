@@ -74,8 +74,8 @@ $(function() {
     it('click changes menu visibility', function(done){
       $(".menu-icon-link").click();
       setTimeout(function(){
-          expect($(".slide-menu").css("transform")).toBe('matrix(1, 0, 0, 1, 0, 0)');
-          done();
+        expect($(".slide-menu").css("transform")).toBe('matrix(1, 0, 0, 1, 0, 0)');
+        done();
       },1000);
     });
   });
@@ -88,22 +88,28 @@ $(function() {
     * Remember, loadFeed() is asynchronous so this test will require
     * the use of Jasmine's beforeEach and asynchronous done() function.
     */
-    it('LoadFeed', function(){
-      expect();
+
+    it('loadFeed', function(done){
+      beforeEach(function(done){
+        loadFeed(0, done);
+        });
+      expect($('#entries').length).not.toBe(0);
     });
 
   });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+  /* TODO: Write a new test suite named "New Feed Selection" */
 
-    describe('New Feed Selection', function() {
-      /* TODO: Write a test that ensures when a new feed is loaded
-      * by the loadFeed function that the content actually changes.
-      * Remember, loadFeed() is asynchronous.
-      */
-      it('new feed loaded', function(){
+  describe('New Feed Selection', function() {
+    /* TODO: Write a test that ensures when a new feed is loaded
+    * by the loadFeed function that the content actually changes.
+    * Remember, loadFeed() is asynchronous.
+    */
+    it('new feed loaded', function(done){
+      $(".feed").load();
+      setTimeout(function(){
         expect();
-      });
-
+      },1000);
     });
-  })();
+  });
+});
