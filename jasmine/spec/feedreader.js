@@ -65,7 +65,6 @@ $(function() {
          */
 
         it('elements hidden by default', function(){
-            // expect($(".slide-menu").css("transform")).toBe('matrix(1, 0, 0, 1, -192, 0)');
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
@@ -77,9 +76,15 @@ $(function() {
         it('click changes menu visibility', function(done){
             $(".menu-icon-link").click();
             setTimeout(function(){
-                expect($(".slide-menu").css("transform")).toBe('matrix(1, 0, 0, 1, 0, 0)');
-                done();
+                expect($('body').hasClass('menu-hidden')).not.toBe(true);
+                $(".menu-icon-link").click();
+                setTimeout(function(){
+                    expect($('body').hasClass('menu-hidden')).toBe(true);
+                    done();
+                }, 1000);
+
             },1000);
+
         });
     });
     /* TODO: Write a new test suite named "Initial Entries" */
@@ -112,25 +117,25 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
+        var initFeedData;
+        var newFeedData;
+        beforeEach('new feed loaded', function(done){
+
+            setTimeout(function(){
+                loadFeed(0, function(){
+                    initFeedData = $(".feed").children().html();
+
+                    loadFeed(1, function(){
+                        newFeedData = $(".feed").children().html();
+                        done();
+                    });
+                });
+            }, 1000);
+        });
+
         it('new feed loaded', function(done){
-            // var oldContent = $(".feed").children().html();
-            // loadFeed(1, function(){
-            //     expect($('.feed').children().html()).not.toEqual(oldContent);
-            //     done();
-            // });
-
-            loadFeed(0, function(){
-                var initFeedData = $(".feed").children().html();
-
-                loadFeed(1, function(){
-                    var newFeedData = $(".feed").children().html();
-                    expect(newFeedData).not.toEqual(initFeedData);
-                    done();
-
-                })
-
-            });
-
+            expect(newFeedData).not.toEqual(initFeedData);
+            done();
         });
 
     });
