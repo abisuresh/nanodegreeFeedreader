@@ -119,9 +119,9 @@ $(function() {
 
         var initFeedData;
         var newFeedData;
-        beforeEach('new feed loaded', function(done){
+        beforeEach(function(done){
 
-            setTimeout(function(){
+            // setTimeout(function(){
                 loadFeed(0, function(){
                     initFeedData = $(".feed").children().html();
 
@@ -130,13 +130,12 @@ $(function() {
                         done();
                     });
                 });
-            }, 1000);
+            // }, 1000);
         });
 
         it('new feed loaded', function(done){
             expect(newFeedData).not.toEqual(initFeedData);
             done();
         });
-
     });
 });
